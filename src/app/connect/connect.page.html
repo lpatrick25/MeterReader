@@ -1,0 +1,60 @@
+<ion-header>
+  <ion-toolbar class="header">
+    <ion-title>MacWSS</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="main-content">
+    <div class="content">
+      <ion-img src="../../assets/16907.jpg" class="illustration"></ion-img>
+
+      @if (isScanning) {
+        <ion-spinner color="primary"></ion-spinner>
+      }
+      @if (!isScanning && !isConnected) {
+        <ion-list class="devices">
+          @for (device of devices; track device.address) {
+            <ion-item
+              (click)="connectDevice(device)"
+              class="device"
+              lines="none"
+              detail="false"
+              [button]="true">
+              <ion-icon slot="start" name="print-outline" color="primary"></ion-icon>
+              <div class="device-wrapper">
+                <ion-label>{{device.name}}</ion-label>
+                <ion-note>{{device.address}}</ion-note>
+              </div>
+            </ion-item>
+          }
+        </ion-list>
+
+        <ion-button expand="block" color="primary" (click)="presentSearchModal()">
+          <ion-icon slot="start" name="search"></ion-icon>
+          <ion-label>Search Printers</ion-label>
+        </ion-button>
+      }
+      @else if (isConnected) {
+        <ion-button expand="block" color="success" [routerLink]="['/main']">
+          <ion-label>Print Water Bill</ion-label>
+        </ion-button>
+
+        <ion-button expand="block" fill="outline" color="danger" (click)="disconnect()">
+          <ion-icon slot="start" name="power-outline"></ion-icon>
+          <ion-label>Disconnect</ion-label>
+        </ion-button>
+
+        <ion-button expand="block" color="secondary">
+          <ion-label>Change</ion-label>
+        </ion-button>
+      }
+      @else {
+        <ion-button expand="block" fill="outline" color="warning" (click)="stopScan()">
+          <ion-icon slot="start" name="stop-circle-outline"></ion-icon>
+          <ion-label>Stop Scanning</ion-label>
+        </ion-button>
+      }
+    </div>
+  </div>
+</ion-content>

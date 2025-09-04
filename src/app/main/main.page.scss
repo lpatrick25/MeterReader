@@ -1,0 +1,33 @@
+.header-toolbar {
+  --background: linear-gradient(135deg, #1e90ff 0%, #00b7eb 100%);
+  --color: #ffffff;
+  ion-title {
+    font-weight: 600;
+    font-size: 1.5rem;
+  }
+}
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: linear-gradient(180deg, #f0f8ff 0%, #e6f3ff 100%);
+}
+
+.actions {
+  padding: 1rem;
+  margin-top: auto;
+  ion-button {
+    --border-radius: 8px;
+    --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    text-transform: uppercase;
+  }
+  ion-row {
+    gap: 0.5rem;
+    > * {
+      flex: 1;
+    }
+  }
+}
