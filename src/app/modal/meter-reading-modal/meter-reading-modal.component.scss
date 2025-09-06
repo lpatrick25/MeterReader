@@ -1,0 +1,17 @@
+.alert {
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  font-weight: 500;
+}
+
+.alert-success {
+  background: #e9f9ee;
+  color: #1e7e34;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+  background: #fcebea;
+  color: #b02a37;
+  border: 1px solid #f5c6cb;
+}

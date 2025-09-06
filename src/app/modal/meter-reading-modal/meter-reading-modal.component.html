@@ -1,0 +1,97 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Meter Reading Details</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="dismiss()">Close</ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding bg-gray-100">
+  <div class="max-w-md mx-auto">
+
+    <!-- Illustration -->
+    <div class="text-center mb-3">
+      <ion-img src="../../../assets/16907.jpg" style="max-height:120px;"></ion-img>
+    </div>
+
+    <ion-card class="shadow-lg">
+      <ion-card-header>
+        <ion-card-title class="text-lg font-semibold text-gray-800">Water Bill Details</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+
+        <!-- Success Alert -->
+        <div *ngIf="successMessage" class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+          <i class="bi bi-check-circle-fill me-2"></i> {{ successMessage }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="successMessage = null"></button>
+        </div>
+
+        <!-- Error Alert -->
+        <div *ngIf="errorMessage" class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+          <i class="bi bi-exclamation-triangle-fill me-2"></i> {{ errorMessage }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"
+            (click)="errorMessage = null"></button>
+        </div>
+        <ion-list class="mb-4">
+          <ion-item>
+            <ion-label>Water Meter Number</ion-label>
+            <ion-text slot="end">{{ meterData?.meter_number }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Concessionaire Name</ion-label>
+            <ion-text slot="end">{{ meterData?.concessionaire_name }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Account Number</ion-label>
+            <ion-text slot="end">{{ meterData?.account_number }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Previous Reading</ion-label>
+            <ion-text slot="end">{{ meterData?.previous_reading }}</ion-text>
+          </ion-item>
+
+          <!-- Current Reading Input -->
+          <ion-item>
+            <ion-label position="floating">Current Reading</ion-label>
+            <ion-input [(ngModel)]="currentReading" type="number" required></ion-input>
+          </ion-item>
+
+          <!-- Results -->
+          <ion-item *ngIf="billingResult && !isLoading">
+            <ion-label>Consumption</ion-label>
+            <ion-badge color="tertiary" slot="end">
+              {{ billingResult?.consumption }} cu.m.
+            </ion-badge>
+          </ion-item>
+
+          <ion-item *ngIf="billingResult && !isLoading">
+            <ion-label>Amount Due</ion-label>
+            <ion-text color="danger" slot="end">
+              ₱{{ billingResult?.amount_due | number:'1.2-2' }}
+            </ion-text>
+          </ion-item>
+
+          <!-- Loading Spinner -->
+          <div class="text-center mt-3" *ngIf="isLoading">
+            <ion-spinner color="primary"></ion-spinner>
+            <p class="text-muted mt-2">Calculating your bill...</p>
+          </div>
+
+          <ion-button expand="block" color="success" (click)="printReceipt()" [disabled]="!billingResult">
+            Print Receipt
+          </ion-button>
+
+
+        </ion-list>
+
+        <ion-button expand="block" color="primary" (click)="calculateBill()" [disabled]="!currentReading">
+          💧 Calculate Bill
+        </ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+</ion-content>

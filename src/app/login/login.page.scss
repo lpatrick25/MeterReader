@@ -1,0 +1,109 @@
+// Typewriter animation for the login title
+.typewriter-title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #3c388f;
+  background: linear-gradient(90deg, #6c63ff 0%, #4a47a3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-bottom: 2rem;
+  position: relative;
+  min-height: 2.5em;
+}
+
+.typewriter-text {
+  overflow: hidden;
+  border-right: .15em solid #6c63ff;
+  white-space: nowrap;
+  letter-spacing: .03em;
+  animation: typing 2.5s steps(40, end) 0.3s 1 normal both;
+}
+
+.typewriter-cursor {
+  display: inline-block;
+  color: #6c63ff;
+  font-weight: 700;
+  font-size: 1.1em;
+  margin-left: 0.1em;
+  animation: blink-cursor 0.7s steps(1) infinite;
+  position: relative;
+  top: 2px;
+}
+
+@keyframes typing {
+  from { width: 0 }
+  to { width: 100% }
+}
+
+@keyframes blink-cursor {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.login-page {
+  --background: #f5f7fa;
+
+  .wave-container {
+    position: relative;
+    height: 220px;
+    overflow: hidden;
+
+    .wave-bg {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+    }
+
+    .illustration-wrapper {
+      position: relative;
+      z-index: 1;
+      margin-top: 2rem;
+
+      .login-illustration {
+        max-width: 200px;
+      }
+    }
+  }
+
+  .card {
+    border-radius: 1.25rem;
+    background: #ffffff;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  }
+
+  ion-input.form-control {
+    padding: 0.75rem 1rem;
+    border-radius: 0 0.5rem 0.5rem 0;
+    font-size: 0.95rem;
+  }
+
+  .input-group-text {
+    border-radius: 0.5rem 0 0 0.5rem;
+    background: #f1f3f5;
+  }
+
+  ion-button.btn-primary {
+    --background: linear-gradient(135deg, #6c63ff, #4a47a3);
+    --border-radius: 2rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
+    transition: all 0.3s ease;
+
+    &:hover {
+      --background: linear-gradient(135deg, #5a54e6, #3c388f);
+      transform: translateY(-1px);
+    }
+  }
+
+  .alert {
+    font-size: 0.9rem;
+    padding: 0.6rem 1rem;
+  }
+}

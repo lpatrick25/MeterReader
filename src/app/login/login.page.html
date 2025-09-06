@@ -1,0 +1,98 @@
+<ion-content class="ion-padding login-page">
+  <div class="wave-container">
+    <!-- SVG Wave Background -->
+    <svg class="wave-bg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320">
+      <path fill="#6c63ff" fill-opacity="1"
+        d="M0,288L48,288C96,288,192,288,288,266.7C384,245,480,203,576,160C672,117,768,75,864,69.3C960,64,1056,96,1152,122.7C1248,149,1344,171,1392,181.3L1440,192L1440,0L1392,0C1344,0,1248,0,1152,0C1056,0,960,0,864,0C768,0,672,0,576,0C480,0,384,0,288,0C192,0,96,0,48,0L0,0Z">
+      </path>
+    </svg>
+
+    <!-- Illustration -->
+    <div class="illustration-wrapper text-center">
+      <img src="../../assets/login-illustration.png" alt="Login Illustration" class="login-illustration img-fluid" />
+
+    </div>
+  </div>
+
+  <h1 class="text-center mt-5 typewriter-title">
+    <span class="typewriter-text">MacWSS Meter Reader</span>
+    <span class="typewriter-cursor"></span>
+  </h1>
+
+  <div class="container d-flex flex-column  min-vh-100">
+    <div class="row justify-content-center">
+      <div class="col-md-6 col-lg-4">
+        <div class="card shadow border-0 rounded-4">
+          <div class="card-body p-4">
+            <h2 class="text-center mb-4 fw-bold text-primary">Login</h2>
+
+            <!-- Alerts -->
+            <div *ngIf="errorMessage" class="alert alert-danger d-flex align-items-center rounded-3 shadow-sm" role="alert">
+              <i class="bi bi-exclamation-triangle-fill me-2"></i>
+              <span>{{ errorMessage }}</span>
+            </div>
+            <div *ngIf="successMessage" class="alert alert-success d-flex align-items-center rounded-3 shadow-sm" role="alert">
+              <i class="bi bi-check-circle-fill me-2"></i>
+              <span>{{ successMessage }}</span>
+            </div>
+
+            <form #loginForm="ngForm" (ngSubmit)="onSubmit()" novalidate>
+              <!-- Email -->
+              <div class="mb-3 input-group">
+                <span class="input-group-text bg-light border-end-0">
+                  <i class="bi bi-person-fill text-muted"></i>
+                </span>
+                <ion-input
+                  type="email"
+                  class="form-control border-start-0"
+                  placeholder="Email Address"
+                  [(ngModel)]="credentials.email"
+                  name="email"
+                  required
+                  email
+                  #email="ngModel"
+                ></ion-input>
+              </div>
+              <div *ngIf="email.invalid && (email.dirty || email.touched)" class="text-danger small mb-3 ms-1">
+                <span *ngIf="email.errors?.['required']">Email is required</span>
+                <span *ngIf="email.errors?.['email']">Please enter a valid email</span>
+              </div>
+
+              <!-- Password -->
+              <div class="mb-3 input-group">
+                <span class="input-group-text bg-light border-end-0">
+                  <i class="bi bi-lock-fill text-muted"></i>
+                </span>
+                <ion-input
+                  type="password"
+                  class="form-control border-start-0"
+                  placeholder="Password"
+                  [(ngModel)]="credentials.password"
+                  name="password"
+                  required
+                  minlength="6"
+                  #password="ngModel"
+                ></ion-input>
+              </div>
+              <div *ngIf="password.invalid && (password.dirty || password.touched)" class="text-danger small mb-3 ms-1">
+                <span *ngIf="password.errors?.['required']">Password is required</span>
+                <span *ngIf="password.errors?.['minlength']">Password must be at least 6 characters</span>
+              </div>
+
+              <!-- Button -->
+              <ion-button
+                type="submit"
+                expand="block"
+                class="btn btn-primary w-100 rounded-pill py-2 shadow-sm"
+                [disabled]="loginForm.invalid || isLoading"
+              >
+                <ion-spinner *ngIf="isLoading" name="crescent" class="me-2"></ion-spinner>
+                {{ isLoading ? 'Logging in...' : 'Login' }}
+              </ion-button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ion-content>

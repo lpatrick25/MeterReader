@@ -1,5 +1,6 @@
 import { Component, NgZone } from '@angular/core';
 import { ToastController } from '@ionic/angular';
+import { Capacitor, CapacitorException } from '@capacitor/core';
 import { CapacitorThermalPrinter } from 'capacitor-thermal-printer';
 import { Router } from '@angular/router';
 import { ModalController } from '@ionic/angular';
@@ -22,59 +23,72 @@ export class ConnectPage {
     private router: Router,
     private modalController: ModalController
   ) {
-    CapacitorThermalPrinter.addListener('discoverDevices', ({ devices }: { devices: any }) => {
-      this.zone.run(() => {
-        this.devices = devices;
+    if (Capacitor.getPlatform() !== 'web') {
+      CapacitorThermalPrinter.addListener('discoverDevices', ({ devices }: { devices: any }) => {
+        this.zone.run(() => {
+          this.devices = devices;
+        });
       });
-    });
-    CapacitorThermalPrinter.addListener('connected', async () => {
-      this.zone.run(() => {
-        this.isConnected = true;
+
+      CapacitorThermalPrinter.addListener('connected', async () => {
+        this.zone.run(() => {
+          this.isConnected = true;
+        });
+        const toast = await this.toastController.create({
+          message: 'Connected to Water Meter!',
+          duration: 1500,
+          position: 'bottom',
+          color: 'success',
+        });
+        await toast.present();
       });
-      const toast = await this.toastController.create({
-        message: 'Connected to Water Meter!',
-        duration: 1500,
-        position: 'bottom',
-        color: 'success',
+
+      CapacitorThermalPrinter.addListener('disconnected', async () => {
+        this.zone.run(() => {
+          this.isConnected = false;
+        });
+        const toast = await this.toastController.create({
+          message: 'Disconnected!',
+          duration: 1500,
+          position: 'bottom',
+          color: 'warning',
+        });
+        await toast.present();
       });
-      await toast.present();
-    });
-    CapacitorThermalPrinter.addListener('disconnected', async () => {
-      this.zone.run(() => {
-        this.isConnected = false;
+
+      CapacitorThermalPrinter.addListener('discoveryFinish', () => {
+        this.zone.run(() => {
+          this.isScanning = false;
+        });
       });
-      const toast = await this.toastController.create({
-        message: 'Disconnected!',
-        duration: 1500,
-        position: 'bottom',
-        color: 'warning',
-      });
-      await toast.present();
-    });
-    CapacitorThermalPrinter.addListener('discoveryFinish', () => {
-      this.zone.run(() => {
-        this.isScanning = false;
-      });
-    });
+    }
   }
 
   async connectDevice(device: any) {
-    await CapacitorThermalPrinter.connect({
-      address: device.address,
-    });
+    if (Capacitor.getPlatform() === 'web') {
+      console.warn('Thermal printer not available on web');
+      return;
+    }
+    await CapacitorThermalPrinter.connect({ address: device.address });
   }
 
   startScan() {
+    if (Capacitor.getPlatform() === 'web') {
+      console.warn('Thermal printer scan not available on web');
+      return;
+    }
     if (this.isScanning) return;
     this.devices = [];
     CapacitorThermalPrinter.startScan().then(() => (this.isScanning = true));
   }
 
   stopScan() {
+    if (Capacitor.getPlatform() === 'web') return;
     CapacitorThermalPrinter.stopScan();
   }
 
   disconnect() {
+    if (Capacitor.getPlatform() === 'web') return;
     CapacitorThermalPrinter.disconnect();
   }
 

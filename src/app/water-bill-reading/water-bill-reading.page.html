@@ -1,0 +1,41 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-title>Water Bill Reading</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding bg-gray-100">
+  <div class="max-w-md mx-auto mt-6">
+
+    <!-- Banner / Illustration -->
+    <div class="text-cente">
+      <ion-img src="../../assets/16907.jpg" class="img img-rounded" style=""></ion-img>
+    </div>
+
+    <ion-card class="shadow-lg text-center">
+
+      <h2 class="mt-2 text-primary fw-bold">Check Your Bill</h2>
+      <p class="text-muted">Enter your water meter number to view details</p>
+    </ion-card>
+
+    <!-- Search Card -->
+    <ion-card class="shadow-lg">
+      <ion-card-header>
+        <ion-card-title class="text-lg font-semibold text-gray-800">
+          Enter Meter Details
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form (ngSubmit)="searchMeter()">
+          <ion-item class="mb-4">
+            <ion-label position="floating">Water Meter Number</ion-label>
+            <ion-input [(ngModel)]="meterNumber" name="meterNumber" type="text" required></ion-input>
+          </ion-item>
+          <ion-button expand="block" type="submit" color="primary" [disabled]="!meterNumber">
+            🔍 Search Meter
+          </ion-button>
+        </form>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>
