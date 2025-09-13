@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">Example</string>
-    <string name="title_activity_main">Example</string>
-    <string name="package_name">io.ionic.starter</string>
-    <string name="custom_url_scheme">io.ionic.starter</string>
+    <string name="app_name">MacWSS-Mobile</string>
+    <string name="title_activity_main">MacWSS-Mobile</string>
+    <string name="package_name">com.macwss.mobile</string>
+    <string name="custom_url_scheme">com.macwss.mobile</string>
 </resources>

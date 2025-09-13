@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
-  appName: 'Example',
+  appId: 'com.macwss.mobile',
+  appName: 'MacWSS-Mobile',
   webDir: 'www',
   server: {
     androidScheme: 'http'

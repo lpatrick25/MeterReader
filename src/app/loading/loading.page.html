@@ -1,0 +1,12 @@
+<ion-content fullscreen>
+  <div class="overlay"></div> <!-- Dark overlay -->
+
+  <div class="center-wrapper">
+
+    <div class="network-check-animation" *ngIf="!hasProceeded">
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+    <p class="loading-message">{{ loadingMessage }}</p>
+  </div>
+</ion-content>
